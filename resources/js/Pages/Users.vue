@@ -3,13 +3,12 @@
     import TableText from '@/Components/TableText.vue';
     import ButtonModel from '@/Components/ButtonModel.vue';
     import UserModel from '@/Components/Model/UserModel.vue';
-    import { ref } from 'vue';
-    
+
     defineProps({
         users: { type: Array, required: true, },
     });
 
-    let model = ref("user-model");
+    let model = "user-model";
 </script>
 <template>
     <TableLayout>
@@ -27,7 +26,7 @@
             </tr>
         </template>
         <template #modal>
-            <UserModel :model="model" action="#"/>
+            <UserModel :model="model" :action="route('users.store')" text="Adicionar" text-close="Cancelar" text-submit="Submeter"/>
         </template>
     </TableLayout>
 </template>
