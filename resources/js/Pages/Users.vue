@@ -11,7 +11,7 @@
     let model = "user-model";
 </script>
 <template>
-    <TableLayout>
+    <TableLayout title="Users" panel="Users">
         <template #buttons>
             <ButtonModel :model="model" text="Adicionar"/>
         </template>
