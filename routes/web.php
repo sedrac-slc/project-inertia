@@ -38,4 +38,13 @@ Route::middleware([
         "only" => ["index","store", "update","destroy",]
     ]);
 
+    Route::resource("roles",App\Http\Controllers\RoleController::class, [
+        "only" => ["index","store", "update","destroy",]
+    ]);
+
+    Route::resource("permissions",App\Http\Controllers\PermissionController::class, [
+        "only" => ["index","store", "update","destroy",]
+    ]);
+
+
 });

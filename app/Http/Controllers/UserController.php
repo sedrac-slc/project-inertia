@@ -4,65 +4,54 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Services\UserService;
+use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private $service;
+
+    function __construct(){
+        $this->service =  new UserService();
+    }
+
     public function index()
     {
-        $users = User::all();
+        $users = $this->service->paginate();
         return Inertia::render('Users',compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function store(UserRequest $request){
+       $request->validate(["password" => ["required"], "confirm_password" => ["required"]]);
+       try{
+            $this->service->save($request->all());
+            return to_route('users.index');
+       }catch(Exception){
+            dd("store");
+       }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        dd("oi store", $request->all());
+    public function update(UserRequest $request, User $user){
+       try{
+            $this->service->update($request->all(), $user);
+            return to_route('users.index');
+        }catch(Exception){
+            dd("update");
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
+    public function destroy(User $user){
+        try{
+            $this->service->delete($user);
+            return to_route('users.index');
+        }catch(Exception){
+            dd("delete");
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
 }

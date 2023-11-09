@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Utils\MigrationUtil;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,19 +17,42 @@ class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
+    use HasUuids;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    public const NAME = "name";
+    public const EMAIL = "email";
+    public const GENDER = "gender";
+    public const BIRTHDAY = "birthday";
+    public const PHONE = "phone";
+    public const PASSWORD = "password";
+    public const REMEMBER_TOKEN = 'remember_token';
+    public const EMAIL_VERIFIED_AT = "email_verified_at";
+    public const PROFILE_PHOTO_URL = "profile_photo_url";
+    public const TWO_FACTOR_SECRET = 'two_factor_secret';
+    public const TWO_FACTOR_RECOVERY_CODES ='two_factor_recovery_codes';
+
+    public const TABLE = "users";
+
+    protected $table = User::TABLE;
+
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        MigrationUtil::ID,
+        User::NAME,
+        User::EMAIL,
+        User::PHONE,
+        User::GENDER,
+        User::BIRTHDAY,
+        User::PASSWORD,
+        MigrationUtil::CREATED_BY,
+        MigrationUtil::CREATED_AT,
+        MigrationUtil::UPDATED_BY,
+        MigrationUtil::UPDATED_AT,
+        MigrationUtil::DELETED_BY,
+        MigrationUtil::DELETED_AT,
     ];
 
     /**
@@ -35,10 +61,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
+        User::PASSWORD,
+        User::REMEMBER_TOKEN,
+        User::TWO_FACTOR_SECRET,
+        USer::TWO_FACTOR_RECOVERY_CODES,
     ];
 
     /**
@@ -47,7 +73,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        User::EMAIL_VERIFIED_AT => 'datetime',
     ];
 
     /**
@@ -56,6 +82,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $appends = [
-        'profile_photo_url',
+        User::PROFILE_PHOTO_URL,
     ];
 }

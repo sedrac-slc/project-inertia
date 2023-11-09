@@ -11,6 +11,9 @@ import TextInput from '@/Components/TextInput.vue';
 const form = useForm({
     name: '',
     email: '',
+    gender: '',
+    phone: '',
+    birthday: '',
     password: '',
     password_confirmation: '',
     terms: false,
@@ -57,6 +60,42 @@ const submit = () => {
                     autocomplete="username"
                 />
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="phone" value="Phone" />
+                <TextInput
+                    id="phone"
+                    v-model="form.phone"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="phone"
+                />
+                <InputError class="mt-2" :message="form.errors.phone" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="birthday" value="Birthday" />
+                <TextInput
+                    id="birthday"
+                    v-model="form.birthday"
+                    type="date"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="birthday"
+                />
+                <InputError class="mt-2" :message="form.errors.birthday" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="gender" value="Gender" />
+                <select autocomplete="gender" required class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" v-model="form.gender">
+                    <option value="OTHER">Outros</option>
+                    <option value="MALE">Masculino</option>
+                    <option value="FEMALE">Femenino</option>
+                </select>
+                <InputError class="mt-2" :message="form.errors.gender" />
             </div>
 
             <div class="mt-4">
