@@ -18,8 +18,7 @@ class UserController extends Controller
         $this->service =  new UserService();
     }
 
-    public function index()
-    {
+    public function index(){
         $users = $this->service->paginate();
         return Inertia::render('Users',compact('users'));
     }
@@ -30,7 +29,7 @@ class UserController extends Controller
             $this->service->save($request->all());
             return to_route('users.index');
        }catch(Exception){
-            dd("store");
+
        }
     }
 
@@ -39,7 +38,7 @@ class UserController extends Controller
             $this->service->update($request->all(), $user);
             return to_route('users.index');
         }catch(Exception){
-            dd("update");
+
         }
     }
 
@@ -48,7 +47,7 @@ class UserController extends Controller
             $this->service->delete($user);
             return to_route('users.index');
         }catch(Exception){
-            dd("delete");
+
         }
     }
 

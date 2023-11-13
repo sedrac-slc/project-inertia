@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils\Permissions;
+namespace App\Enums\Permissions;
 
 use App\Components\PermissionGroupOption;
 use App\Models\Permission;
